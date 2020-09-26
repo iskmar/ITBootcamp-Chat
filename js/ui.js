@@ -52,12 +52,10 @@ export class ChatUI {
 		div.classList.add('msg_hover');
 		div1.style.marginLeft = '50px';
 		span.style.fontWeight = 'bolder';
-		trashIcon.classList.add('btnDelete');
 		trashIcon.setAttribute('data-id', objId);
 		trashIcon.style.marginLeft = '10px';
 		trashIcon.style.width = '20px';
 		trashIcon.classList.add('delete');
-		// trashIcon.setAttribute('data-id',objId);
 		i.classList.add('far');
 		i.classList.add('fa-user');
 		i.style.fontSize = '40px';
@@ -67,7 +65,6 @@ export class ChatUI {
 		} else {
 			div.classList.add('guestMessage');
 		}
-
 
 		span.innerHTML = `&nbsp&nbsp&nbsp${username} - `;
 		span1.innerHTML = `${strTime}`;
@@ -88,32 +85,4 @@ export class ChatUI {
 		this.chat.appendChild(div);
 	}
 
-	msgDelete(obj) {
-		this.chat.addEventListener('click', event => {
-			let id = event.target.parentElement.getAttribute('data-id');
-			console.log(id);
-			if(localStorage.getItem('name') === obj.username){
-				if(event.target.tagName === "BUTTON") {
-					let id = event.target.parentElement.getAttribute('data-id');
-					let answer = confirm('Da li zelite da obrisete poruku?');
-					if(answer) {
-						db.collection( 'chats' ).doc( id )
-							.delete()
-							.then( () => {
-							} );
-					}
-				}
-			} else {
-				if(event.target.tagName === "BUTTON") {
-					let id = event.target.parentElement.getAttribute('data-id');
-					if(answer) {
-						id.remove();
-					}
-
-				}
-			}
-
-		});
-
-	}
 }

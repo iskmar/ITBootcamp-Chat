@@ -16,7 +16,7 @@
 }
 #left {
     background-color: rgb(74,21,75);
-    height: 94vh;
+    min-height: 100vh;
 }
 #left h3 {
     color: white;
@@ -24,6 +24,9 @@
 #h3_div {
     text-align: center;
     border: 1px solid lightslategray;
+}
+#right {
+    height: 78vh;
 }
 .room {
     color: white;
@@ -42,7 +45,7 @@
     text-decoration: none;
 }
 #chat-room {
-    height: 78vh;
+    height: 100%;
     margin: 0;
     padding: 0;
     display: flex;

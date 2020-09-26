@@ -45,22 +45,20 @@ export class Chatroom {
 
 	}
 	async getChats ( cb ) {
-			this.unsub = this.chats
-				.where( 'room', '==', this.room )
-				.orderBy( 'created_at', 'asc' )
-				.onSnapshot( snapshot => {
-					if(!snapshot.empty) {
-						snapshot.docChanges().forEach( change => {
-							let type = change.type;
-							let doc = change.doc;
-							if ( type === 'added' ) {
-								// let obj = doc;
-								cb( doc );
-							}
-						} )
-					}
-
-				} )
+		this.unsub = this.chats
+			.where( 'room', '==', this.room )
+			.orderBy( 'created_at', 'asc' )
+			.onSnapshot( snapshot => {
+				if(!snapshot.empty) {
+					snapshot.docChanges().forEach( change => {
+						let type = change.type;
+						let doc = change.doc;
+						if ( type === 'added' ) {
+							cb( doc );
+						}
+					});
+				}
+			});
 	}
 
 	async getFilterChats ( obj1,inF,inT,ul ) {
@@ -80,10 +78,8 @@ export class Chatroom {
 						if ( type === 'added' ) {
 							obj1.templateUI(doc);
 						}
-					} )
+					} );
 				}
-			})
+			});
 	}
-
-
 }
