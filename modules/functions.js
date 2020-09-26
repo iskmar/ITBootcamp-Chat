@@ -32,13 +32,15 @@ let deleteMessage = (event) => {
 		if (event.target.parentElement.classList.contains('guestMessage')) {
 			setTimeout(() => {
 				event.target.parentElement.remove();
-			},500)
+			},500);
 		} else {
 			let answer = confirm('Message will be permanently deleted. Continue?');
 			if(answer) {
-				db.collection('chats').doc(id)
+			db.collection('chats').doc(id)
 					.delete()
-					.then()
+					.then(() => {
+						document.querySelector(`div[data-id='${id}']`).remove();
+					})
 					.catch(err => alert(err));
 			}
 		}

@@ -37,52 +37,47 @@ export class ChatUI {
 
 		let strDate = this.formatDate( date )[ 0 ];
 		let strTime = this.formatDate( date )[ 1 ];
-		let div = document.createElement('div');
-		let span = document.createElement('span');
-		let span1 = document.createElement('span');
-		let span2 = document.createElement('span');
-		let div1 = document.createElement('div');
-		let imgDiv = document.createElement('div');
+		let divChatContainer = document.createElement('div');
+		let spanUsername = document.createElement('span');
+		let spanTime = document.createElement('span');
+		let divMessage = document.createElement('div');
 		let trashIcon = document.createElement('i');
-		let i = document.createElement('i');
+		let userIcon = document.createElement('i');
 
+		divChatContainer.setAttribute('data-id', objId);
+		divChatContainer.classList.add('msg_hover');
+		trashIcon.setAttribute('data-id', objId);
 		trashIcon.classList.add('far');
 		trashIcon.classList.add('fa-trash-alt');
-		div.setAttribute('data-id', objId);
-		div.classList.add('msg_hover');
-		div1.style.marginLeft = '50px';
-		span.style.fontWeight = 'bolder';
-		trashIcon.setAttribute('data-id', objId);
+		trashIcon.classList.add('delete');
+		userIcon.classList.add('far');
+		userIcon.classList.add('fa-user');
+		divMessage.style.marginLeft = '50px';
+		spanUsername.style.fontWeight = 'bolder';
 		trashIcon.style.marginLeft = '10px';
 		trashIcon.style.width = '20px';
-		trashIcon.classList.add('delete');
-		i.classList.add('far');
-		i.classList.add('fa-user');
-		i.style.fontSize = '40px';
+		userIcon.style.fontSize = '40px';
 
 		if(objData.username === currentUsername) {
-			div.classList.add('myMessage');
+			divChatContainer.classList.add('myMessage');
 		} else {
-			div.classList.add('guestMessage');
+			divChatContainer.classList.add('guestMessage');
 		}
 
-		span.innerHTML = `&nbsp&nbsp&nbsp${username} - `;
-		span1.innerHTML = `${strTime}`;
-		div1.innerHTML = `${message}`;
-		imgDiv.appendChild(i);
-		div.appendChild(imgDiv);
-		div.appendChild(i);
-		div.appendChild(span);
+		spanUsername.innerHTML = `&nbsp&nbsp&nbsp${username} - `;
+		spanTime.innerHTML = `${strTime}`;
+		divMessage.innerHTML = `${message}`;
+		divChatContainer.appendChild(userIcon);
+		divChatContainer.appendChild(spanUsername);
 		if ( now.getDate() > date.getDate() ) {
-			span1.innerHTML = `${strDate}`;
+			spanTime.innerHTML = `${strDate}`;
 
 		} else {
-			span1.innerHTML = `${strTime}`;
+			spanTime.innerHTML = `${strTime}`;
 		}
-		div.appendChild(span1);
-		div.appendChild(trashIcon)
-		div.appendChild(div1)
-		this.chat.appendChild(div);
+		divChatContainer.appendChild(spanTime);
+		divChatContainer.appendChild(trashIcon)
+		divChatContainer.appendChild(divMessage)
+		this.chat.appendChild(divChatContainer);
 	}
-
 }

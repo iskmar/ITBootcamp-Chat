@@ -40,9 +40,7 @@ export class Chatroom {
 			room: this.room,
 			created_at: firebase.firestore.Timestamp.fromDate(new Date())
 		}
-		let response = await this.chats.add(chat);
-		return response;
-
+		return await this.chats.add(chat);
 	}
 	async getChats ( cb ) {
 		this.unsub = this.chats

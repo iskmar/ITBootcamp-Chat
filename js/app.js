@@ -20,7 +20,7 @@ checkName();
 let room = getRoomId(buttons);
 let chatMsg = new Chatroom( room, checkName());
 let writeChat = new ChatUI(ul);
-chatRoom.style.backgroundColor = localStorage.getItem('color');
+chatRoom.style.backgroundColor = localStorage.getItem('color')
 
 // update background color
 btnSetColor.addEventListener('click', event => {
