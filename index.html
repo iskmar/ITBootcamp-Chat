@@ -5,6 +5,7 @@
 	<meta name = "viewport"
 	      content = "width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" >
 	<meta http-equiv = "X-UA-Compatible" content = "ie=edge" >
+	<script src="https://kit.fontawesome.com/d195c1ff28.js" crossorigin="anonymous"></script>
 	<!-- CSS only -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 	<title >ITBootcamp chat</title >
@@ -18,7 +19,7 @@
 	</div >
 </div >
 <div class = "row no-gutters" >
-	<div id = "left" class = "col-12 col-sm-2" >
+	<div id = "left" class = "col-12 col-lg-2" >
 		<div id = "h3_div" class = "col-12" >
 			<h3 >Choose a chatroom</h3 >
 		</div >
@@ -29,25 +30,33 @@
 			<button id = "tests" class = "room col-12" >#tests</button >
 		</div >
 	</div >
-	<div id = "right" class = "col-12 col-sm-10" >
+	<div id = "right" class = "col-12 col-lg-10" >
 		<section id = "chat-room" class = "col-12" >
 			<ul id = "chatUl" ></ul >
 		</section >
 		<div id="speech" class="speech-bubble"></div>
-
 		<div id = "form" >
-			<form id = "form_message" action = "" >
-<!--				<input id = "message_field" class="input_field col-12" type = "text" placeholder="Enter your message here" >-->
-				<textarea name = "" class="input_field col-12" id = "message_field" cols = "10" rows = "2" placeholder="Enter your message here"></textarea >
-<!--				<input id = "btn_sndMessage" class = "form_btn col-1" type = "submit" value = "Send" >-->
+<!--		    COLOR FORM-->
+			<form action = "" id="form_color" >
+				<input type = "color" class="color_field col-2" id="color_value" value="#FFFFFF">
+				<input type = "submit" id="submit_color" value="Set color" >
 			</form >
+
+<!--			MESSAGE FORM-->
+			<form id = "form_message" action = "" >
+				<input id = "message_field" class="input_field col-12" type = "text" placeholder="Enter your message here" >
+			</form >
+
+<!--			NAME FORM-->
 			<form id = "form_name" action = "" >
 				<input id = "name_field" class="input_field col-12" type = "text" placeholder="Enter your name here">
 <!--				<input id = "btn_sndName" class = "form_btn col-1" type = "submit" value = "Name" >-->
 			</form >
+
+<!--			DATE FORM-->
 			<form action = "" id="chat_filter_form" >
-				<input type = "date" id="start_date">
-				<input type = "date" id="end_date">
+				<input type = "datetime-local" id="start_date">
+				<input type = "datetime-local" id="end_date">
 				<input type = "submit" id="submit_date" value="Set Dates">
 			</form >
 		</div >

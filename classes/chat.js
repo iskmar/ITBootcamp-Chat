@@ -49,38 +49,40 @@ export class Chatroom {
 				.where( 'room', '==', this.room )
 				.orderBy( 'created_at', 'asc' )
 				.onSnapshot( snapshot => {
+					if(!snapshot.empty) {
+						snapshot.docChanges().forEach( change => {
+							let type = change.type;
+							let doc = change.doc;
+							if ( type === 'added' ) {
+								// let obj = doc;
+								cb( doc );
+							}
+						} )
+					}
+
+				} )
+	}
+
+	async getFilterChats ( obj1,inF,inT,ul ) {
+		let startDate = new Date(inF.value);
+		let endDate = new Date(inT.value);
+		ul.innerHTML = '';
+		db.collection('chats')
+			.where('created_at', '>=', startDate)
+			.where('created_at', '<=', endDate)
+			.orderBy('created_at', 'asc')
+			.get()
+			.then(snapshot =>{
+				if(!snapshot.empty) {
 					snapshot.docChanges().forEach( change => {
 						let type = change.type;
 						let doc = change.doc;
 						if ( type === 'added' ) {
-							// let obj = doc;
-							cb( doc );
-
+							obj1.templateUI(doc);
 						}
 					} )
-				} )
-	}
-
-	async getFilterChats ( cb ) {
-		let startDate = document.getElementById('start_date');
-		let endDate = document.getElementById('end_date');
-		this.unsub = this.chats
-			.where( 'room', '==', this.room )
-			.where('created_at', '>=', startDate.value)
-			.where('created_at', '<=', endDate.value)
-			.orderBy( 'created_at', 'asc' )
-			.onSnapshot( snapshot => {
-				snapshot.docChanges().forEach( change => {
-					let type = change.type;
-					let doc = change.doc;
-					if ( type === 'added' ) {
-						// let obj = doc;
-						cb( doc );
-						console.log(startDate.value);
-
-					}
-				} )
-			} )
+				}
+			})
 	}
 
 

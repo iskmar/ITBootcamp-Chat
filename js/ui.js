@@ -27,61 +27,63 @@ export class ChatUI {
 		return [strDate,strTime];
 	}
 	templateUI(obj) {
-		// let img = `<div><img src="../images/iconfinder_user-alt_285645%20(1).png" alt=""></div>`;
 		let now = new Date();
 		let objData = obj.data();
 		let objId = obj.id;
 		let message = objData.message;
 		let username = objData.username;
 		let date = objData.created_at.toDate();
-		// console.log(objData.created_at);
-		function toDateTime(sec) {
-			var t = new Date(1970, 0, 1); // Epoch
-			t.setSeconds(sec);
-			return t;
-		}
-		console.log(toDateTime(objData.created_at));
+		let currentUsername = localStorage.getItem( 'name' );
+
 		let strDate = this.formatDate( date )[ 0 ];
 		let strTime = this.formatDate( date )[ 1 ];
-		let localName = localStorage.getItem( 'name' );
 		let div = document.createElement('div');
 		let span = document.createElement('span');
-		let span1 = document.createElement('span')
-		let p = document.createElement('button');
+		let span1 = document.createElement('span');
+		let span2 = document.createElement('span');
 		let div1 = document.createElement('div');
+		let imgDiv = document.createElement('div');
+		let trashIcon = document.createElement('i');
+		let i = document.createElement('i');
 
+		trashIcon.classList.add('far');
+		trashIcon.classList.add('fa-trash-alt');
 		div.setAttribute('data-id', objId);
 		div.classList.add('msg_hover');
-		span.setAttribute('display', 'inline-block');
-		span1.setAttribute('display','inline-block');
-		p.classList.add('btnDelete');
-		p.setAttribute('data-id', objId);
-		p.style.marginLeft = '10px';
-		p.style.width = '20px';
-		p.style.borderRadius = '5px';
-		p.style.backgroundColor = '#4a154b';
-		p.style.color = 'white';
+		div1.style.marginLeft = '50px';
+		span.style.fontWeight = 'bolder';
+		trashIcon.classList.add('btnDelete');
+		trashIcon.setAttribute('data-id', objId);
+		trashIcon.style.marginLeft = '10px';
+		trashIcon.style.width = '20px';
+		trashIcon.classList.add('delete');
+		// trashIcon.setAttribute('data-id',objId);
+		i.classList.add('far');
+		i.classList.add('fa-user');
+		i.style.fontSize = '40px';
 
-		if ( now.getDate() > date.getDate() ) {
-			if ( username === localName ) {
-				div.classList.add('user_msg')
-				span1.innerHTML = `${strDate}`;
-				p.classList.add('delete');
-
-			}
+		if(objData.username === currentUsername) {
+			div.classList.add('myMessage');
 		} else {
-			if ( username === localName ) {
-				div.classList.add('user_msg');
-			}
-
+			div.classList.add('guestMessage');
 		}
-		p.innerHTML = 'X';
+
+
+		span.innerHTML = `&nbsp&nbsp&nbsp${username} - `;
 		span1.innerHTML = `${strTime}`;
-		span.innerHTML = `${username} - `;
 		div1.innerHTML = `${message}`;
+		imgDiv.appendChild(i);
+		div.appendChild(imgDiv);
+		div.appendChild(i);
 		div.appendChild(span);
+		if ( now.getDate() > date.getDate() ) {
+			span1.innerHTML = `${strDate}`;
+
+		} else {
+			span1.innerHTML = `${strTime}`;
+		}
 		div.appendChild(span1);
-		div.appendChild(p);
+		div.appendChild(trashIcon)
 		div.appendChild(div1)
 		this.chat.appendChild(div);
 	}
@@ -104,7 +106,6 @@ export class ChatUI {
 			} else {
 				if(event.target.tagName === "BUTTON") {
 					let id = event.target.parentElement.getAttribute('data-id');
-					let answer = confirm('Da li zelite da obrisete poruku?');
 					if(answer) {
 						id.remove();
 					}
